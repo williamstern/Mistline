@@ -1,3 +1,4 @@
+import re
 import requests
 import geocoder
 
@@ -8,6 +9,10 @@ def find_cordinates(user):
     lng = geo.latlng[1]
 
     return (lat, lng)
+
+def parse(weather_data):    
+    matches = re.findall("\d+", weather_data)
+    print(matches)
 
 header = {
     'Content-Type': 'application/json',
@@ -22,5 +27,6 @@ response = requests.request("GET", url, headers=header, params=payload)
 
 print(response.text)
 
-#fuck you
+parse(response.text)   
+
 
