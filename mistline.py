@@ -1,14 +1,7 @@
 import requests
 import geocoder
 
-#api_key = GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie
-
-#url = "https://api.climacell.co/v3/weather/forecast/hourly"
-
-#response = requests.request("GET", url)
-
-#print(response)
-
+#api_key = "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie"
 def find_cordinates(user):
     geo = geocoder.ip(user)
     lat = geo.latlng[0]
@@ -18,7 +11,12 @@ def find_cordinates(user):
 
 
 (lt, lg) = find_cordinates("me")
-print(lt)
-print(lg)
+payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "precipitation_probability": " "}
+
+url = "https://api.climacell.co/v3/weather/forecast/hourly"
+response = requests.request("GET", url)
+
+print(response.text)
+
 
 
