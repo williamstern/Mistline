@@ -14,10 +14,10 @@ header = {
     'apikey': "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie",
 }
 (lt, lg) = find_cordinates("me")
-fields = ["temp", "feels_like", "humidity", "wind_speed", "precipitation_probability"]
+fields = ["temp", "feels_like"]
 payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "fields": fields}
 
-url = "https://api.climacell.co/v3/weather/forecast/realtime"
+url = "https://api.climacell.co/v3/weather/realtime"
 response = requests.request("GET", url, headers=header, params=payload)
 
 print(response.text)
