@@ -9,11 +9,16 @@ import geocoder
 
 #print(response)
 
+def find_cordinates(user):
+    geo = geocoder.ip(user)
+    lat = geo.latlng[0]
+    lng = geo.latlng[1]
 
-geo = geocoder.ip('me')
-lat = geo.latlng[0]
-lng = geo.latlng[1]
+    return (lat, lng)
 
-print(lat)
-print(lng)
-print("what is a printf")
+
+(lt, lg) = find_cordinates("me")
+print(lt)
+print(lg)
+
+
