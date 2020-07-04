@@ -8,14 +8,16 @@ def find_cordinates(user):
     lng = geo.latlng[1]
 
     return (lat, lng)
-
-
+header = {
+    'Content-Type': 'application/json',
+    'apikey': "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie",
+}
 (lt, lg) = find_cordinates("me")
 fields = ["temp", "feels_like", "humidity", "wind_speed", "precipitation_probability"]
-payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "precipitation_probability": fields, "apikey": "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie"}
+payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "fields": fields}
 
 url = "https://api.climacell.co/v3/weather/forecast/hourly"
-response = requests.request("GET", url)
+response = requests.request("GET", url, headers=header, params=payload)
 
 print(response.text)
 
