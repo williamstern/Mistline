@@ -11,14 +11,15 @@ def find_cordinates(user):
     return (lat, lng)
 
 def parse(weather_data):    
-    matches = re.findall("\d+", weather_data)
+    matches = re.findall(':(-?[0-9]+.?[0-9]*),', weather_data)
     print(matches)
 
+# lets change this to a dict
 class real_time:
     def __init__(self, lat, lon, temp, feel_like, precipitation, precipitation_type,observation_time):
         self.lat = lat
         self.lon = lon 
-        self.temp =temp
+        self.temp = temp
         self.feel_like = feel_like
         self.precipitation = precipitation
         self.precipitation_type =precipitation_type
