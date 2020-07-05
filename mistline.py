@@ -12,45 +12,39 @@ def find_cordinates(user):
 
 def parse(weather_data):    
     matches = re.findall(':(-?[0-9]+.?[0-9]*),', weather_data)
-    print(matches)
+    return  matches
 
 # lets change this to a dict
-class real_time:
-    def __init__(self, lat, lon, temp, feel_like, precipitation, precipitation_type,observation_time):
-        self.lat = lat
-        self.lon = lon 
-        self.temp = temp
-        self.feel_like = feel_like
-        self.precipitation = precipitation
-        self.precipitation_type =precipitation_type
-        self.observation_time = observation_time
+
+def input_dict(list_t,field_t, lat, lon):
+    input_dict["lat"] = lat
+    input_dict["lon"] = lon
     
+    for i, j in zip(list_t, field_t): 
+        input_dict[j] = i
+    return input_dict
+
+class realtime:
+    def __init__(self, data_dict):
+        self.data = data_dict
+
     def display(self):
-        print("Day/time : " + str(self.observation_time))
-        print("location : " + str(self.lat) + str(self.lon))
-        print("temp: " + str(self.temp))
-        print("feel_like " + str(self.feel_like))
-        print("precipitation : " + str(self.precipitation))
-        print("precipitation : " + str(self.precipitation_type))
-
-
-
+        for x in self.data:
+            print(str(x) + " :" + str(self.data[x]))
+    
 header = {
     'apikey': "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie",
 }
-
-
 (lt, lg) = find_cordinates("me")
-
 fields = ["temp", "feels_like","precipitation_type","precipitation"]
-
 payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "fields": fields}
 
 url = "https://api.climacell.co/v3/weather/realtime"
 response = requests.request("GET", url, headers=header, params=payload)
 
 print(response.text)
-parse(response.text)  
+list_t = parse(response.text)  
+print(type(list_t))
  
 
 
