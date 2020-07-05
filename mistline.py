@@ -16,20 +16,19 @@ def parse(weather_data):
         matches[i] = float(matches[i])
     precip_type = re.search('"[a-z]+_[a-z]}+":{"[a-z]+":"([a-z]+])"},', weather_data)
     matches.append(precip_type)
-    
-    print(matches)
+    #print(matches)
     return matches
 
-
-# lets change this to a dict
-
 def input_dict(list_t,field_t, lat, lon):
-    input_dict["lat"] = lat
-    input_dict["lon"] = lon
+    input_dict_a = { }
+
+    input_dict_a["latitude"] = lat
+    input_dict_a["longitude"] = lon
     
-    for i, j in zip(list_t, field_t): 
-        input_dict[j] = i
-    return input_dict
+    for i, j in zip(list_t[2:], field_t): 
+        input_dict_a[j] = i
+
+    return input_dict_a
 
 class realtime:
     def __init__(self, data_dict):
@@ -37,23 +36,20 @@ class realtime:
 
     def display(self):
         for x in self.data:
-            print(str(x) + " :" + str(self.data[x]))
-    
+            print(str(x) + " : " + str(self.data[x]))
+
 header = {
     'apikey': "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie",
 }
+
 (lt, lg) = find_cordinates("me")
-
 fields = ["temp", "feels_like","precipitation","precipitation_type"]
-
 payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "fields": fields}
-
 url = "https://api.climacell.co/v3/weather/realtime"
 response = requests.request("GET", url, headers=header, params=payload)
-
-print(response.text)
+#print(response.text)
 list_t = parse(response.text)  
-print(type(list_t))
- 
 
-
+weather_report = input_dict(list_t, fields, lt, lg)
+data_output = realtime(weather_report)
+data_output.display()
