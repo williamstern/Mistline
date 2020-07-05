@@ -12,7 +12,13 @@ def find_cordinates(user):
 
 def parse(weather_data):    
     matches = re.findall(':(-?[0-9]+.?[0-9]*),', weather_data)
+    for i in range(len(matches)):
+        matches[i] = float(matches[i])
+    precip_type = re.search('"[a-z]+_[a-z]}+":{"[a-z]+":"([a-z]+])"},', weather_data)
+    matches.append(precip_type)
+    
     print(matches)
+    return matches
 
 # lets change this to a dict
 class real_time:
@@ -42,7 +48,7 @@ header = {
 
 (lt, lg) = find_cordinates("me")
 
-fields = ["temp", "feels_like","precipitation_type","precipitation"]
+fields = ["temp", "feels_like","precipitation","precipitation_type"]
 
 payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "fields": fields}
 
