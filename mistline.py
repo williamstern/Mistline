@@ -36,11 +36,14 @@ class real_time:
 
 
 header = {
-    'Content-Type': 'application/json',
     'apikey': "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie",
 }
+
+
 (lt, lg) = find_cordinates("me")
+
 fields = ["temp", "feels_like","precipitation_type","precipitation"]
+
 payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "fields": fields}
 
 url = "https://api.climacell.co/v3/weather/realtime"
