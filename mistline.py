@@ -12,9 +12,6 @@ def find_cordinates(user):
 
 def parse(weather_data):    
     matches = re.findall(':(-?[0-9]+.?[0-9]*),', weather_data)
-<<<<<<< HEAD
-    return  matches
-=======
     for i in range(len(matches)):
         matches[i] = float(matches[i])
     precip_type = re.search('"[a-z]+_[a-z]}+":{"[a-z]+":"([a-z]+])"},', weather_data)
@@ -22,7 +19,7 @@ def parse(weather_data):
     
     print(matches)
     return matches
->>>>>>> 9ab0f4f1e2826a2b5de4fc08f8976a1da5fe4456
+
 
 # lets change this to a dict
 
@@ -46,13 +43,9 @@ header = {
     'apikey': "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie",
 }
 (lt, lg) = find_cordinates("me")
-<<<<<<< HEAD
-fields = ["temp", "feels_like","precipitation_type","precipitation"]
-=======
 
 fields = ["temp", "feels_like","precipitation","precipitation_type"]
 
->>>>>>> 9ab0f4f1e2826a2b5de4fc08f8976a1da5fe4456
 payload = {"lat": lt, 'lon': lg, "location_id": "me", "unit_system" : "us", "fields": fields}
 
 url = "https://api.climacell.co/v3/weather/realtime"
