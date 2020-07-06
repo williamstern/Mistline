@@ -1,6 +1,8 @@
 import re
 import requests
 import geocoder
+import PySimpleGUI as sg
+
 
 #api_key = "GA8VgLQpB0Whf3D7KDuHwbvii1LBmyie"
 def find_cordinates(user):
@@ -52,4 +54,16 @@ list_t = parse(response.text)
 
 weather_report = input_dict(list_t, fields, lt, lg)
 data_output = realtime(weather_report)
-data_output.display()
+
+prt = " "
+for x in weather_report:
+    prt = str(x) + " : " + str(weather_report[x]) + "\n" + prt
+sg.theme('DarkTeal11')	
+layout = [[sg.Text(prt, font='Courier 20'),sg.Button('Cancel', font = "Bookman 15")] ]
+window = sg.Window('Weather API', layout)
+while True:
+    event, values = window.read()
+    if event == sg.WIN_CLOSED or event == 'Cancel':	# if user closes window or clicks cancel
+        break
+    sg.pop(values)
+window.close()
